@@ -1,17 +1,23 @@
 <h1>Edit your post!</h1>
 
-<form action="<%= post_url(@post) %>" method="post">
+<form action="<%= posts_url %>" method="post">
   <input type="hidden" name="_method" value="patch">
   <label>Title
-    <input type="text" name="post[title]" value="<%= @post.title %>">
+    <input type="text" name="post[title]" value="">
   </label>
   <label>URL
-    <input type="text" name="post[url]" value="<%= @post.url %>">
+    <input type="text" name="post[url]" value="">
   </label>
   <label>Content
-    <input type="text" name="post[content]" value="<%= @post.content %>">
-  </label>
+    <input type="text" name="post[content]" value="">
+  </label><br>
 
+  <% Sub.all.each do |sub1| %>
+  <%= check_box_tag "sub_ids[]", sub1.id %>
+  <%= sub1.title %><br>
+  <% end %>
 
-  <input type="submit" value="Shout into the void!">
+  <h2><input type="submit" value="Shout into the void!"></h2>
 </form>
+
+<h2><%= link_to "Return to Index", subs_url, method: :get %></h2>

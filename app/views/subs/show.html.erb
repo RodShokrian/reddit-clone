@@ -2,11 +2,14 @@
 Moderator: <%= @sub.moderator.username %>
 
 <% @sub.posts.each_with_index do |post, i| %>
-<h3><%= i + 1 %></h3>  <%= link_to "#{post.title}", post_url(post), method: :get %>
+<h2><%= i + 1 %> <%= link_to "#{post.title}", post_url(post), method: :get %></h2>
+
   <% if post.author_id == current_user.id %>
-    <%= link_to "Edit Post", edit_post_url(post), method: :get %>
+    <%= link_to "Edit Post", edit_post_url(post), method: :get %><br>
     <%= link_to "Delete Post", post_url(post), method: :delete %>
   <% end %>
 <% end %>
 
 <h2><%= button_to "Create a new post!", new_post_url, method: :get %></h2>
+
+<h2><%= link_to "Return to Index", subs_url, method: :get %></h2>

@@ -1,7 +1,6 @@
 <h1>Create a new post!</h1>
 
 <form action="<%= posts_url %>" method="post">
-
   <label>Title
     <input type="text" name="post[title]" value="">
   </label>
@@ -10,11 +9,14 @@
   </label>
   <label>Content
     <input type="text" name="post[content]" value="">
-  </label>
+  </label><br>
 
   <% Sub.all.each do |sub1| %>
-  <%= check_box "sub_ids[]", sub1.id %>
+  <%= check_box_tag "sub_ids[]", sub1.id %>
+  <%= sub1.title %><br>
   <% end %>
 
-  <input type="submit" value="Shout into the void!">
+  <h2><input type="submit" value="Shout into the void!"></h2>
 </form>
+
+<h2><%= link_to "Return to Index", subs_url, method: :get %></h2>

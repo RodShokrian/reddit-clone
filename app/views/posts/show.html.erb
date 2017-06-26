@@ -4,4 +4,10 @@
 
 <p> <%= @post.content %> </p>
 
+<% @post.comments.each do |comment| %>
+<p><%= comment.content %> </p>
+<% end %>
+
 This is where comments go!
+
+<h2><%= button_to "Reply to this post", new_post_comment_url(@post), method: :get %></h2>

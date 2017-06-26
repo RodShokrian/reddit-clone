@@ -9,11 +9,13 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.author_id = current_user.id
     if @post.save
-      Postsub.create!(post_id: @post.id, sub_id: params[:post][:sub_id])
+      params[:sub_ids].each do |sub|
+        Postsub.create!(post_id: @post.id, sub_id: sub)
+      end
     else
       flash[:errors] = @post.errors.full_messages
     end
-    redirect_to sub_url(@post.sub_id)
+    redirect_to sub_url(params[:sub_ids].first)
   end
 
   def edit
@@ -43,10 +45,10 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post.destroy
     flash[:errors] = @post.errors.full_messages
-    redirect_to sub_url(@post.sub_id)
+    redirect_to sub_url(@post.subs.first)
   end
 
   def post_params
-    params.require(:post).permit(:title, :url, :content, :sub_ids)
+    params.require(:post).permit(:title, :url, :content, :sub_id, :sub_ids)
   end
 end
